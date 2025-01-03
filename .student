@@ -1,0 +1,111 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class StudentManagementSystem {
+
+    private ArrayList<Student> students;
+
+    // Constructor to initialize the students list
+    public StudentManagementSystem() {
+        students = new ArrayList<>();
+    }
+
+    // Add a student
+    public void addStudent() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter student ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+        
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine();
+        
+        System.out.print("Enter student age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();  // Consume newline
+        
+        System.out.print("Enter course: ");
+        String course = scanner.nextLine();
+        
+        Student student = new Student(id, name, age, course);
+        students.add(student);
+        
+        System.out.println("Student added successfully!");
+    }
+
+    // Display all students
+    public void displayAllStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students to display.");
+        } else {
+            for (Student student : students) {
+                student.displayInfo();
+                System.out.println("-----------------------------");
+            }
+        }
+    }
+
+    // Remove a student by ID
+    public void removeStudent() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter student ID to remove: ");
+        int id = scanner.nextInt();
+        
+        boolean found = false;
+        
+        for (Student student : students) {
+            if (student.getId() == id) {
+                students.remove(student);
+                System.out.println("Student removed successfully!");
+                found = true;
+                break;
+            }
+        }
+        
+        if (!found) {
+            System.out.println("Student with ID " + id + " not found.");
+        }
+    }
+
+    // Main menu
+    public void showMenu() {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        
+        do {
+            System.out.println("Student Management System");
+            System.out.println("1. Add Student");
+            System.out.println("2. Display All Students");
+            System.out.println("3. Remove Student");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            
+            switch (choice) {
+                case 1:
+                    addStudent();
+                    break;
+                case 2:
+                    displayAllStudents();
+                    break;
+                case 3:
+                    removeStudent();
+                    break;
+                case 4:
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        } while (choice != 4);
+    }
+
+    public static void main(String[] args) {
+        StudentManagementSystem system = new StudentManagementSystem();
+        system.showMenu();
+    }
+}
+
+
